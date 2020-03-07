@@ -23,7 +23,7 @@ read guess
 
 while [[ $is_it_guessed -ne 1 ]]
 do
-	if [[ $guess =~ ^[0-9]$ ]]
+	if [[ $guess =~ ^[0-9]*$ ]]
 	then
 		if [[ $guess -eq $number_of_files ]]
 		then
