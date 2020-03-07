@@ -14,25 +14,27 @@ check () {
 }
 
 # it counts how many files are in current directory minus 1 which is "Total ..."
-number_of_files=$( ls -al | wc -l )-1
+number_of_files=$( ls -A | wc -l )
+is_it_guessed=0
 
 echo "How many files are in this directory (please enter a number)?"
 read guess
 
-while [[ $guess -ne $number_of_files ]]
+
+while [[ $is_it_guessed -ne 1 ]]
 do
-	if [[ $guess =~ ^[0-9$] ]] # checking if the number was pressed like 0,1,2,3 and nothing else
+	if [[ $guess =~ ^[0-9]$ ]]
 	then
-		check
-		read guess
+		if [[ $guess -eq $number_of_files ]]
+		then
+        		echo "Congratulations ! You guessed the right number of files in this directory"
+        		let is_it_guessed=1
+		else
+			check
+			read guess
+		fi
 	else
 		echo "You need to type the number numerically like 0,1,2 and so on, try again"
 		read guess
 	fi
 done
-
-if [[ $guess -eq $number_of_files ]]
-then
-	echo "Congratulations ! You guessed the right number of files in this directory"
-fi
-
